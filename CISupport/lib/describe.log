@@ -1,0 +1,532 @@
+************************************************************
+XMLName: InstalledPackage
+DirName: installedPackages
+Suffix: installedPackage
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomLabels
+DirName: labels
+Suffix: labels
+HasMetaFile: false
+InFolder: false
+ChildObjects: CustomLabel,************************************************************
+************************************************************
+XMLName: StaticResource
+DirName: staticresources
+Suffix: resource
+HasMetaFile: true
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Scontrol
+DirName: scontrols
+Suffix: scf
+HasMetaFile: true
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: AuraDefinitionBundle
+DirName: aura
+Suffix: null
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ApexComponent
+DirName: components
+Suffix: component
+HasMetaFile: true
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ApexPage
+DirName: pages
+Suffix: page
+HasMetaFile: true
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Queue
+DirName: queues
+Suffix: queue
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ExternalDataSource
+DirName: dataSources
+Suffix: dataSource
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: NamedCredential
+DirName: namedCredentials
+Suffix: namedCredential
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Role
+DirName: roles
+Suffix: role
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Group
+DirName: groups
+Suffix: group
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomPermission
+DirName: customPermissions
+Suffix: customPermission
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomObject
+DirName: objects
+Suffix: object
+HasMetaFile: false
+InFolder: false
+ChildObjects: CustomField,BusinessProcess,CompactLayout,RecordType,WebLink,ValidationRule,SharingReason,ListView,FieldSet,************************************************************
+************************************************************
+XMLName: ReportType
+DirName: reportTypes
+Suffix: reportType
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Report
+DirName: reports
+Suffix: report
+HasMetaFile: false
+InFolder: true
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Dashboard
+DirName: dashboards
+Suffix: dashboard
+HasMetaFile: false
+InFolder: true
+ChildObjects: ************************************************************
+************************************************************
+XMLName: AnalyticSnapshot
+DirName: analyticSnapshots
+Suffix: snapshot
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Layout
+DirName: layouts
+Suffix: layout
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Document
+DirName: documents
+Suffix: null
+HasMetaFile: true
+InFolder: true
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomPageWebLink
+DirName: weblinks
+Suffix: weblink
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: QuickAction
+DirName: quickActions
+Suffix: quickAction
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: FlexiPage
+DirName: flexipages
+Suffix: flexipage
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomTab
+DirName: tabs
+Suffix: tab
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomApplicationComponent
+DirName: customApplicationComponents
+Suffix: customApplicationComponent
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomApplication
+DirName: applications
+Suffix: app
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Portal
+DirName: portals
+Suffix: portal
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Letterhead
+DirName: letterhead
+Suffix: letter
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: EmailTemplate
+DirName: email
+Suffix: email
+HasMetaFile: true
+InFolder: true
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Flow
+DirName: flows
+Suffix: flow
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Workflow
+DirName: workflows
+Suffix: workflow
+HasMetaFile: false
+InFolder: false
+ChildObjects: WorkflowFieldUpdate,WorkflowKnowledgePublish,WorkflowTask,WorkflowAlert,WorkflowSend,WorkflowOutboundMessage,WorkflowRule,************************************************************
+************************************************************
+XMLName: AssignmentRules
+DirName: assignmentRules
+Suffix: assignmentRules
+HasMetaFile: false
+InFolder: false
+ChildObjects: AssignmentRule,************************************************************
+************************************************************
+XMLName: AutoResponseRules
+DirName: autoResponseRules
+Suffix: autoResponseRules
+HasMetaFile: false
+InFolder: false
+ChildObjects: AutoResponseRule,************************************************************
+************************************************************
+XMLName: EscalationRules
+DirName: escalationRules
+Suffix: escalationRules
+HasMetaFile: false
+InFolder: false
+ChildObjects: EscalationRule,************************************************************
+************************************************************
+XMLName: PostTemplate
+DirName: postTemplates
+Suffix: postTemplate
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ApprovalProcess
+DirName: approvalProcesses
+Suffix: approvalProcess
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: HomePageComponent
+DirName: homePageComponents
+Suffix: homePageComponent
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: HomePageLayout
+DirName: homePageLayouts
+Suffix: homePageLayout
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomObjectTranslation
+DirName: objectTranslations
+Suffix: objectTranslation
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Translations
+DirName: translations
+Suffix: translation
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ApexClass
+DirName: classes
+Suffix: cls
+HasMetaFile: true
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ApexTrigger
+DirName: triggers
+Suffix: trigger
+HasMetaFile: true
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Profile
+DirName: profiles
+Suffix: profile
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: PermissionSet
+DirName: permissionsets
+Suffix: permissionset
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomMetadata
+DirName: customMetadata
+Suffix: md
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: DataCategoryGroup
+DirName: datacategorygroups
+Suffix: datacategorygroup
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: RemoteSiteSetting
+DirName: remoteSiteSettings
+Suffix: remoteSite
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: MatchingRules
+DirName: matchingRules
+Suffix: matchingRule
+HasMetaFile: false
+InFolder: false
+ChildObjects: MatchingRule,************************************************************
+************************************************************
+XMLName: AuthProvider
+DirName: authproviders
+Suffix: authprovider
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CustomSite
+DirName: sites
+Suffix: site
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ChannelLayout
+DirName: channelLayouts
+Suffix: channelLayout
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: SharingRules
+DirName: sharingRules
+Suffix: sharingRules
+HasMetaFile: false
+InFolder: false
+ChildObjects: SharingOwnerRule,SharingCriteriaRule,************************************************************
+************************************************************
+XMLName: SharingSet
+DirName: sharingSets
+Suffix: sharingSet
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Community
+DirName: communities
+Suffix: community
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CallCenter
+DirName: callCenters
+Suffix: callCenter
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: MilestoneType
+DirName: milestoneTypes
+Suffix: milestoneType
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: EntitlementProcess
+DirName: entitlementProcesses
+Suffix: entitlementProcess
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: EntitlementTemplate
+DirName: entitlementTemplates
+Suffix: entitlementTemplate
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ConnectedApp
+DirName: connectedApps
+Suffix: connectedApp
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: AppMenu
+DirName: appMenus
+Suffix: appMenu
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: SiteDotCom
+DirName: siteDotComSites
+Suffix: site
+HasMetaFile: true
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Network
+DirName: networks
+Suffix: network
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ManagedTopics
+DirName: managedTopics
+Suffix: managedTopics
+HasMetaFile: false
+InFolder: false
+ChildObjects: ManagedTopic,************************************************************
+************************************************************
+XMLName: Territory2Type
+DirName: territory2Types
+Suffix: territory2Type
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Territory2Model
+DirName: territory2Models
+Suffix: territory2Model
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Territory2Rule
+DirName: territory2Models
+Suffix: territory2Rule
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Territory2
+DirName: territory2Models
+Suffix: territory2
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: SamlSsoConfig
+DirName: samlssoconfigs
+Suffix: samlssoconfig
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: CorsWhitelistOrigin
+DirName: corsWhitelistOrigins
+Suffix: corsWhitelistOrigin
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: ActionLinkGroupTemplate
+DirName: actionLinkGroupTemplates
+Suffix: actionLinkGroupTemplate
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Skill
+DirName: skills
+Suffix: skill
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: LiveChatDeployment
+DirName: liveChatDeployments
+Suffix: liveChatDeployment
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: LiveChatButton
+DirName: liveChatButtons
+Suffix: liveChatButton
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: LiveChatAgentConfig
+DirName: liveChatAgentConfigs
+Suffix: liveChatAgentConfig
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: SynonymDictionary
+DirName: synonymDictionaries
+Suffix: synonymDictionary
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************
+************************************************************
+XMLName: Settings
+DirName: settings
+Suffix: settings
+HasMetaFile: false
+InFolder: false
+ChildObjects: ************************************************************

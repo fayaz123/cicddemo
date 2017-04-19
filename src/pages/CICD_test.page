@@ -1,0 +1,10 @@
+<apex:page >
+   <apex:form >
+      <apex:pageBlock >
+          <apex:pageBlockSection >
+                  CICD TEST PAGE ,<br/>
+                  Intuit ,Bangalore 
+           </apex:pageBlockSection>
+        </apex:pageBlock>
+     </apex:form> 
+</apex:page>

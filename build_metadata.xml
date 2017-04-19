@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IETest" basedir="." xmlns:sf="antlib:com.salesforce">
+    
+    <property file="../build.properties"/>
+    <property file="default.properties"/>
+    
+	<property environment="env"/>
+    
+  
+    <!-- Define salesforce migration tool task  -->
+    <taskdef resource="com/salesforce/antlib.xml" uri="antlib:com.salesforce">
+        <classpath>
+            <pathelement location="lib/ant-salesforce.jar" />
+        </classpath>
+    </taskdef>
+    
+    <!-- Define ant contib task to have complex logic like if else and for loop etc. -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml" 
+              classpath="${ant.contrib.jar}" />
+	
+    <path id="Encodebase64.path">
+        <pathelement location="${ant.java.commons-codec.jar}"/>
+        <pathelement location="${ant.git.salesforce.incremental.jar}"/>
+    </path>
+    <!-- Define ant http task to make http get and post to salesforce for data -->  
+	<taskdef name="http" 
+             classname="org.missinglink.ant.task.http.HttpClientTask" classpath="${ant.http.jar}"/> 
+    
+    
+    <!-- Define xmltask to parse xml and add node to xml etc. -->
+    <taskdef name="xmltask" 
+             classname="com.oopsconsultancy.xmltask.ant.XmlTask" classpath="${ant.xmltask.jar}"/>
+    
+        <!-- Define custom prepartepackagexml task to create package xml from svn change log-->
+    <taskdef name="preparepackagexml" 
+             classname="CreatePackgeXML" classpath="${ant.git.salesforce.incremental.jar}"/>
+    
+    
+    <!-- Define custom copyfiles task to prepare deployment folder from svn using package xml-->
+    <taskdef name="copyfiles" 
+             classname="CopyFilesUsingPackageXML" classpath="${ant.git.salesforce.incremental.jar}"/>
+    
+    <!-- Define custom EncodeBase64 task to convert zip back up to base64 so that it can be post to SF -->
+    <taskdef name="EncodeBased64" classpathref="Encodebase64.path"
+             classname="EncodeBased64Binary"  />
+
+    <!-- Define custom mergePackageXml task to merge OneOff-package-xml with package-xml-->
+    <taskdef name="mergePackageXml" 
+             classname="MergePackageXML" classpath="${ant.git.salesforce.incremental.jar}"/>
+	
+	
+	<!-- Define custom copyfiles task to prepare deployment folder from svn using package xml-->
+	    <taskdef name="cleanPermissions" 
+	             classname="PreparePermissions" classpath="${ant.git.salesforce.incremental.jar}"/>
+			 
+    <!-- Login into Salesforce and return the session Id and serverUrl using http task-->
+    <macrodef name="login">
+        <attribute name="username" description="Salesforce user name."/>
+        <attribute name="password" description="Salesforce password."/>
+        <attribute name="serverurl" description="Server Url property."/>
+        <attribute name="sessionId" description="Session Id property."/>
+        <attribute name="loginUrl" description="Session Id property."/>
+        
+        <sequential>
+            
+            <!-- Obtain Session Id via Login SOAP service -->
+            <http url="@{loginUrl}" method="POST" failonunexpected="false"
+                entityProperty="loginResponse" statusProperty="loginResponseStatus" 
+                printrequestheaders="false" printresponseheaders="false" printrequest="false">
+                <headers>
+                    <header name="Content-Type" value="text/xml"/>
+                    <header name="SOAPAction" value="login"/>
+                </headers>
+                <entity>
+                    <![CDATA[
+                    <env:Envelope xmlns:xsd='http://www.w3.org/2001/XMLSchema' 
+                        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+                        xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'>
+                        <env:Body>
+                            <sf:login xmlns:sf='urn:enterprise.soap.sforce.com'>
+                                <sf:username>@{username}</sf:username>
+                                <sf:password>@{password}</sf:password>
+                            </sf:login>
+                        </env:Body>
+                    </env:Envelope>
+                    ]]>
+                </entity>
+            </http>
+            
+            <!-- Parse response -->
+            
+            <xmltask destbuffer="loginResponseBuffer">
+                <insert path="/">${loginResponse}</insert>
+            </xmltask>
+            <if>
+                <!-- Success? -->
+                <equals arg1="${loginResponseStatus}" arg2="200"/>
+                <then>
+                    <!-- Parse sessionId and serverUrl -->
+                    <xmltask sourcebuffer="loginResponseBuffer" failWithoutMatch="true">
+                        <copy path="/*[local-name()='Envelope']/*[local-name()='Body']/:loginResponse/:result/:sessionId/text()"
+                          property="@{sessionId}"/>
+                        <copy path="/*[local-name()='Envelope']/*[local-name()='Body']/:loginResponse/:result/:serverUrl/text()"
+                          property="@{serverUrl}"/>
+                    </xmltask>
+                </then>
+                <else>
+                    <!-- Parse login error message and fail build -->
+                    <xmltask sourcebuffer="loginResponseBuffer" failWithoutMatch="true">
+                        <copy 
+                          path="/*[local-name()='Envelope']/*[local-name()='Body']/*[local-name()='Fault']/*[local-name()='faultstring']/text()" 
+                          property="faultString"/>
+                    </xmltask>
+                    <fail message="${faultString}" />
+                </else>
+            </if>
+        </sequential>
+    </macrodef>
+    
+    
+    
+    
+    <!-- Provides access to the Salesforce REST API for a SOQL query -->
+    
+    <macrodef name="runQuery" description="Run database query">
+        <attribute name="sessionId" description="Salesforce user name."/>
+        <attribute name="serverUrl" description="Salesforce url."/>
+        <attribute name="query" description="Salesforce password."/>
+        <attribute name="queryResult" description="Query result property name"/>
+        <sequential>
+            <!-- Extract host/instance name from the serverUrl returned from the login response -->
+            <propertyregex property="host"
+              input="${serverUrl}"
+              regexp="^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$"
+              select="\3"
+              casesensitive="false" />           
+            <!-- Execute Apex via REST API /query resource -->
+            <http url="https://${host}/services/data/v34.0/query" method="GET" 
+                  entityProperty="queryResultResponse" statusProperty="queryResponseStatus" 
+                  printrequestheaders="false"  printresponse="false" printrequest="false">
+                <headers>
+                    <header name="Authorization" value="Bearer ${sessionId}"/>
+                </headers>
+                <query>
+                    <parameter name="q" value="@{query}"/>
+                </query>
+            </http>
+            
+            <if>
+                <!-- Success -->
+                <equals arg1="${queryResponseStatus}" arg2="200"/>
+                <then>
+                   <property name="@{queryResult}" value="${queryResultResponse}"/>
+                </then>
+                <else>
+					<echo>${line.separator} *** ${queryResultResponse} ***${line.separator}</echo>
+                    <!--<fail message="${queryResultResponse}" />-->
+                </else>
+            </if>
+            
+        </sequential>
+    </macrodef>
+    
+    <!-- this macrodef will attach the package xml and other folders to build record id -->
+    
+    <macrodef name="createAttachment">
+
+		<attribute name="body" description="Property to store the base 64 encoded data."/>
+        <attribute name="sessionId" description="Property to store the base 64 encoded data."/>
+        <attribute name="recordId" description="Property to store the base 64 encoded data." />
+		<sequential>
+		
+            <http url="${sf.attachment.endpoint}" printresponse="false" printrequest="false" expected="201" 
+                  method="POST" entityProperty="recordCreateResponse" statusProperty="loginResponseStatus" failonunexpected="true">
+		    	<headers>
+		    		<header name="Content-Type" value="application/json"/>
+		    		<header name="Authorization" value="Bearer @{sessionId}"/>
+		    	</headers>
+		    	<entity>
+		    		{
+		    			"ParentId": "@{recordId}",
+		    			"Name": "Backbup.zip",
+		    			"Body" : "@{body}"
+		    		}
+		    	</entity>
+		    </http>
+		</sequential>		
+	</macrodef>
+    
+    
+    
+    <!-- this macrodef will create a build record in salesforce with updated revision id -->
+    
+    
+    <macrodef name="createBuildRecord" description="Provides access to the Salesforce Tooling REST API StaticResource resource">
+       
+        <attribute name="sessionId" description="Salesforce user name."/>
+        <attribute name="startrev" description="Salesforce password."/>
+        <attribute name="endrev" description="Salesforce password."/>
+        <attribute name="buildrecordId" description="Salesforce password."/>  
+        <attribute name="backupfilepath" description="D:/ANT SF/salesforce_ant_33.0/SVNANT/backup/code.zip"/>
+        <sequential>
+        
+        		
+       
+		    <http url="${sf.buildrecord.endpoint}" printresponse="false" 
+                  printrequest="false" expected="201" method="POST"  failonunexpected="false"
+                  entityProperty="recordCreateResponse" statusProperty="recordResponseStatus" >
+		    	<headers>
+		    		<header name="Content-Type" value="application/json"/>
+		    		<header name="Authorization" value="Bearer @{sessionId}"/>
+		    	</headers>
+		    	<entity>
+		    		{
+		    			"RevisionStart__c": "@{startrev}",
+		    			"RevisionEnd__c": "@{endrev}"		    			
+		    		}
+		    	</entity>
+		    </http>
+            <if>
+                <!-- Success? -->
+                <equals arg1="${recordResponseStatus}" arg2="201"/>
+                <then>
+                    <!-- Parse JSON response and set properites -->
+                    <script language="javascript">
+                        <![CDATA[
+                            var response = eval('('+project.getProperty('recordCreateResponse')+')');
+
+                               project.setProperty('@{buildrecordId}' , response.id);
+                         ]]>
+                    </script>
+                    <echo>${line.separator} *** Build Record id Created *** </echo>
+                    <if>
+                        <available file="@{backupfilepath}"/>
+                        <then>
+                            <EncodeBased64 srcPatch="@{backupfilepath}" retproperty="base64EncodedValue"/> 
+                    
+                            <createAttachment body="${base64EncodedValue}" sessionId="${sessionId}" 
+                                          recordId="${buildrecordId}" />
+                            <echo>${line.separator} *** Packagexml  attached to  build record *** </echo>
+                        </then>
+                        <else>
+                            <echo>${line.separator} *** No package xml found for attachment  *** </echo>
+                        </else>
+                    </if>
+                    
+                </then>
+                <else>
+                    <!-- Parse login error message and fail build -->
+                    <echo message="${line.separator} ***** WARNING -Build record creation in SF failed.${line.separator} " level="warning"/>
+                    <echo message="${line.separator}**** WARNING Response:  ${recordCreateResponse}***** ${line.separator} " 
+                          level="warning" />
+                    <echo message="${line.separator}**** WARNING Please manullay create build record with svn version in SF***** ${line.separator} " 
+                          level="warning" />
+                </else>
+            </if>
+            
+           
+		</sequential>
+	</macrodef>
+    
+    
+    
+    <!-- Prepare deployment, check the svn diff log , prepare package xml from diff log and then copy files form svn -->
+    
+    <macrodef name="preparedeployment">
+   
+        <attribute name="diffLogFolder"  description="SVN Diff log folder"/>
+        <attribute name="packageXmlFolder" description="SVN Diff log folder"/>
+        <attribute name="deploymentFolderPath" description="Deployment folder path"/>
+        <attribute name="sfusername" description="Salesforce user name."/>
+        <attribute name="sfpassword" description="Salesforce password."/>
+        <attribute name="sfloginUrl" description="Salesforce login URL"/>
+		<attribute name="isFull"  default="false" description="Full or Incremental deployment. Default is Incremental."/> 
+ 
+        <sequential>
+       
+            <!-- check the current git revision revision/version -->
+            <git command="rev-parse" outputproperty="end.revision" >
+                <args>
+                    <arg value="HEAD" />
+                </args>
+            </git>
+                       
+            <echo>${line.separator} *****Current commit id : ${end.revision}***** </echo>
+            
+            <echo>${line.separator} *****Connecting to Salesforce***** </echo>
+            <!-- login to salesforce  -->
+            <login username="@{sfusername}" password="@{sfpassword}" serverurl="serverUrl" sessionId="sessionId"
+                   loginUrl="@{sfloginUrl}"/>
+            
+            <echo>${line.separator} *** Conected to Salesforce **** </echo>
+            
+            <!-- SOQL to salesforce to get latest revision deployed to salesforce -->
+			<if>
+                <equals arg1="@{isFull}" arg2="false"/>
+           
+                <then>
+					<echo>${line.separator} *** Incremental deployment started... </echo>	
+					<echo>${line.separator} *** Get the last commit id deployed to SF </echo>	
+					<runQuery
+						sessionId="${sessionId}"
+						serverUrl="${serverUrl}"
+						queryResult="buildDetails"
+						query="SELECT Id, RevisionStart__c,RevisionEnd__c FROM BuildDetails__c  order by CreatedDate DESC LIMIT 1"/>
+					<echo>${line.separator} *** after query </echo>	
+					<!-- Parse JSON result via JavaScript eval -->
+					
+					<script language="javascript">
+						var response = eval('('+project.getProperty('buildDetails')+')');
+						if(response.records[0]){
+							project.setProperty('start.revision', response.records[0].RevisionEnd__c);
+						}else{
+							project.setProperty('is.lastcommit.id.not.found', true);
+						}
+					</script>
+				<echo>${line.separator} *** script after </echo>			
+				</then>
+				<else>
+					<echo>${line.separator} *** Full deployment started... </echo>
+				
+				</else>
+			</if>
+            
+            <!-- check if the start revision set then take second last commit id -->
+            
+           
+            <if>
+
+                <or>
+				<equals arg1="${is.lastcommit.id.not.found}" arg2="true"/>
+				<equals arg1="@{isFull}" arg2="true"/>
+                </or>
+                <then>                    
+                	 <antcall target="buildFullSource">
+                	  </antcall>                    
+                    <!-- need to be updated after the call-->
+                    <!-- set is deployed property so that build record will be created -->
+                    <property name="is.deployed" value="true"/>
+                </then>
+                <else>                   
+                    <echo> ${line.separator} *** last revision found in Salesforce : ${start.revision} </echo>
+                    <echo> ${line.separator} *** check for ${start.revision} and ${end.revision} ***</echo>
+                    <delete dir="@{packageXmlFolder}"/>
+                    <delete dir="@{diffLogFolder}"/>
+                    <delete dir="@{deploymentFolderPath}"/>
+                    <mkdir dir="@{packageXmlFolder}"/>
+                    <mkdir dir="@{diffLogFolder}"/>
+                    <mkdir dir="@{deploymentFolderPath}"/>
+            
+                    					
+					<!-- getting diff log from git beween two version using svn commandline "-->
+                    <echo> ${line.separator} *** Geting the git change log between ${start.revision} and ${end.revision} ***</echo>
+            
+                    <exec executable="git"  output="@{diffLogFolder}/${git.difflog.name}" >
+                        <arg line="diff"/>
+                        <arg line="--name-status"/>
+                        <arg line="${start.revision}"/>
+                        <arg line="${end.revision}"/>
+                        <arg line="--"/>
+                        <arg line="${git.src}"/>
+                    </exec>
+         
+                    <echo>${line.separator} *****Diff change log created *******</echo>
+            
+                    <condition property="fs.length.empty">
+                        <length mode="all" when="eq" length="0" file="@{diffLogFolder}/${git.difflog.name}">
+                        </length>
+                    </condition>
+                    <!-- call the java code to prepare package xml from diff log-->
+                    <if>
+                     <equals arg1="${fs.length.empty}" arg2="true" />
+                     <then>
+                       <echo message="${line.separator} ${line.separator}  *****There are no changes in Git for deployment*****" />
+                     </then>
+                     <else>
+                        <!-- just for debuging we will delete the file--> 
+                        <!-- start -->
+                        <loadfile property="file" srcfile="@{diffLogFolder}/${git.difflog.name}"/>
+                         <for param="line" list="${file}" delimiter="${line.separator}">
+                              <sequential>
+                                <echo>@{line}</echo>
+                              </sequential>
+                         </for>
+                        <!-- end -->
+                     </else>
+                    </if>
+            
+                    <echo>${line.separator} ***preparing package xml*** </echo>
+            
+                    <preparepackagexml svnDiffLogUrl="@{diffLogFolder}/${git.difflog.name}"
+                                       packageXmlUrl="@{packageXmlFolder}"/>
+					
+					<if>
+                        <available file="@{packageXmlFolder}/${sf.deploycodepkg.fld.name}/${packagexml.name}"/>
+                        <then>
+                            <copyfiles srcUrl="${git.src}" destUrl="@{deploymentFolderPath}"
+                               packageXmlDir="@{packageXmlFolder}"/>
+                            <echo>${line.separator} Deployment folder created </echo>
+                        </then>
+                        <elseif>
+                            <available file="@{packageXmlFolder}/${sf.removecodepkg.fld.name}/${destructiveChanges.packagexml.name}"/>
+                            <then>
+                                <copy todir="@{deploymentFolderPath}" overwrite="false">
+                                    <fileset dir="@{packageXmlFolder}/${sf.removecodepkg.fld.name}"/>
+                                </copy>
+                            </then>
+                        </elseif>
+                    </if>									
+
+                    <echo>***load package xml folder @{deploymentFolderPath}/${packagexml.name} *** </echo>
+                    <loadfile property="packagexml" 
+                                  srcFile="@{deploymentFolderPath}/${packagexml.name}"  failonerror="false"/>
+
+                    <echo>${line.separator} ***load package xml folder  **** ${line.separator}</echo>
+                    <echo>${line.separator} ${packagexml} ${line.separator} </echo>
+                    <echo>***load desturctive package xml folder @{deploymentFolderPath}/${destructiveChanges.packagexml.name} *** </echo>
+                    <loadfile property="desctucitvepackagexml" 
+                                  srcFile="@{deploymentFolderPath}/${destructiveChanges.packagexml.name}"  
+                              failonerror="false"/>
+
+                    <echo>${line.separator} ***load destrucitve package xml folder  **** ${line.separator}</echo>
+                    <echo>${line.separator} ${desctucitvepackagexml} ${line.separator} </echo>
+
+					
+                    <echo>${line.separator} ****start deployment **** ${line.separator}</echo>
+                    <!-- code deploymnet -->
+                    
+					<if>
+                        <available file="@{deploymentFolderPath}/${packagexml.name}"/>
+                        <then>
+                            <sf:deploy  sessionId="${sessionId}"
+                                pollWaitMillis = "${sf.pollWaitMillis}"
+                                maxPoll = "${sf.maxPoll}"
+                                autoUpdatePackage = "true"
+                                serverurl="${sfsb.instanceurl}" 
+                                ignoreWarnings="true" 
+                                deployRoot="@{deploymentFolderPath}"
+                                rollbackOnError="true">
+                            </sf:deploy>
+                            <property name="is.deployed" value="true"/>
+                        </then>
+                        <else>
+                            <echo>***Nothing found for Deployment *** </echo>
+                        </else>
+                    </if>  
+                    
+                    
+                </else>
+              
+             </if>
+            
+            <trycatch property="build.record.exception" >
+              
+                <try>
+                    
+                  <if>
+                    <equals arg1="${is.deployed}" arg2="true" />
+                        <then>
+                            <zip destfile="@{packageXmlFolder}/${sf.backup.fld.name}" basedir="@{deploymentFolderPath}"/> 
+                            <createBuildRecord
+                                sessionId = "${sessionId}"
+                                startrev = "${start.revision}"
+                                endrev = "${end.revision}"
+                                buildrecordId = "buildrecordId"
+                                backupfilepath = "@{packageXmlFolder}/${sf.backup.fld.name}" />  
+                        </then>
+                  </if>
+                    
+                </try>
+
+              <catch>
+                 <echo message="${line.separator} ***** WARNING -Build record creation in SF failed.${line.separator} "
+                       level="warning"/>
+              </catch>
+  
+            </trycatch>
+            <exectuteScript  scriptdir="${sf.apex.script.path}"  pattern="*.txt" />	
+        </sequential>
+        
+        
+        
+    </macrodef>
+   
+    
+    <macrodef name="deploytosf" description="it will deploy the code from Git to Salesforce ">
+        <!-- Salsforce parameters -->
+        <attribute name="sfusername" description="Salesforce user name."/>
+        <attribute name="sfpassword" description="Salesforce password."/>
+        <attribute name="sfserverurl" description="Salesforce server  URL"/>
+        <attribute name="sfloginUrl" description="Salesforce login URL"/>
+        <attribute name="sessionId" description="Salesforce user name." default="${sessionId}"/>
+        <attribute name="endpointForBuildRecord" description="Buird record creation end point" />
+        <attribute name="endpointForBuildAttachment" description="Attachment creation end point" />
+        <!-- SVN Details parameters -->
+        <attribute name="gitlogcomment" description="login url" default="${git.log.comment}"/>
+        <attribute name="startrev" description="Salesforce password." default="${start.revision}"/>
+        <attribute name="endrev" description="Salesforce password." default ="${end.revision}"/>
+        <attribute name="rootdir"  description="Git Diff log folder"/>
+        <attribute name="isFull"  default="false" description="Full or Incremental deployment. Default is Incremental."/>
+        <sequential>
+           
+            <echo>${line.separator} ****Check for describe log avilability **** </echo>
+
+            <if>
+                <available file="${ant.external.lib}/${sf.describe.log.name}"/>
+                <then>
+                      <!-- Do nothing -->  
+                </then>
+                <else>
+                     <sf:describeMetadata
+                            username="@{sfusername}"
+                            password="@{sfpassword}"
+                            serverurl="@{sfserverurl}"
+                            resultFilePath="${ant.external.lib}/${sf.describe.log.name}"/>
+                </else>
+            </if> 
+            <preparedeployment 
+                diffLogFolder="@{rootdir}/${git.ant.difflog.fld.name}"
+                sfusername = "@{sfusername}"
+                sfpassword = "@{sfpassword}"
+                sfloginUrl = "@{sfloginUrl}"
+                packageXmlFolder="@{rootdir}/${git.packagexml.fld.name}"
+                deploymentFolderPath="@{rootdir}/${git.sf.deployment.fld.name}"
+				isFull="@{isFull}"/>
+
+        </sequential>
+       
+    </macrodef>
+    
+     <macrodef name="git">
+        <attribute name="command" />
+        <attribute name="outputproperty" default="dummy" />
+        <element name="args" optional="true" />
+        <sequential>
+
+            <echo message="git @{command}" />
+            <exec executable="git"   outputproperty="@{outputproperty}">
+                <arg value="@{command}" />
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+    
+    <macrodef name="executeAnonymous" description="Invoke ExecuteAnonymous using Salesforce Tooling API">
+		<text name="apexcode"/>
+		<sequential>
+			<!-- Login to populate serverUrl / sessionId / instance -->
+			<!-- Execute using HTTP GET -->
+			<http url="${sf.executeAnonymous.endpoint}" method="GET" 
+				  outfile="executeAnonymousResult.json"  statusProperty="loginResponseStatus" >
+				<headers>
+					<header name="Authorization" value="Bearer ${sessionId}"/>
+				</headers>
+				<query>
+					<parameter name="anonymousBody" value="@{apexcode}"/>
+				</query>
+			</http>
+			<!-- Fail on error -->
+			<loadfile property="executeAnonymousResult" srcFile="executeAnonymousResult.json" />
+			<if>
+                <!-- failed -->
+				<resourcecontains resource="executeAnonymousResult.json" substring="&quot;success&quot;:false" />
+                <then>
+					<echo>${line.separator} ${line.separator} *******************Execute Anonymous failed:************** </echo>
+					<echo message=" ${line.separator}  ${executeAnonymousResult}"/>
+                </then>
+				<else>
+					<!-- Show output -->
+					<echo>${line.separator} *******************Execute Anonymous Success************** </echo>
+					<echo message="${line.separator} ${executeAnonymousResult}" />
+			   </else>
+            </if>
+			<!-- you want mark the build as fail -->
+			<!-- <fail message="Execute Anonymous failed: ${executeAnonymousResult}"> -->
+				<!-- <condition> -->
+				<!-- 	<resourcecontains resource="lib/executeAnonymousResult.json" substring="&quot;success&quot;:false" /> -->
+				<!-- </condition> -->
+			<!-- </fail> -->			
+		</sequential>
+	</macrodef>
+
+	<macrodef name="exectuteScript">
+		
+		<attribute name="scriptdir" />
+		<attribute name="pattern" default="*.*"/>
+		<sequential>
+			<echo message="${line.separator} ${line.separator} *** Executing Apex Script ***"/>
+			<echo message="${line.separator} *** Start ***"/>
+			<for param="file">
+				<path>
+				   <fileset dir="@{scriptdir}" includes="@{pattern}"/>
+				</path>
+				<sequential>
+					<echo message="${line.separator} ****Script file**** @{file}"/>
+					<loadfile property="filecontain" srcFile="@{file}"/>
+					<echo message="${line.separator} ****Script**** ${line.separator}"/>
+					<echo message="${line.separator}${filecontain}${line.separator}"/>
+					<executeAnonymous >
+						<![CDATA[
+								${filecontain}
+						]]>
+					</executeAnonymous>
+					<var name="filecontain" unset="true"/>
+				</sequential>
+			</for> 
+			<echo message="${line.separator}${line.separator}*** END ***"/>
+		</sequential>
+		
+	</macrodef>
+		
+	<target name="readscript">
+		<login username="${sf.username}" password="${sf.password}" serverurl="serverUrl" sessionId="sessionId"
+                   loginUrl="${sf.login.url}"/>		   
+		<exectuteScript  scriptdir="${sf.apex.script.path}"  pattern="*.txt" />		
+	</target>
+    <target name="Deploy-Incremental">  
+	
+		<git-setup-macro/>
+        <echo>In Deploy - Increamental</echo>
+        <deploytosf        
+            sfusername="${sfsb.username}"
+            sfpassword="${sfsb.password}" 
+            sfserverurl="${sfsb.serverurl}"
+            sfloginUrl="${sf.login.url}"             
+            endpointForBuildRecord = "${sf.buildrecord.endpoint}"
+            endpointForBuildAttachment = "${sf.attachment.endpoint}" 
+            rootdir = "${git.salesforce.root.dir}" 
+			isFull="false"/>
+          
+    </target>		
+	<macrodef name="git-setup-macro">		
+		<sequential>		
+			<if>
+			<equals arg1="${GitEndVersion}" arg2="HEAD" />
+				<then>
+					<git command="pull">														
+					</git> 
+				</then>
+				<else>
+					<git command="pull">														
+					</git> 
+					<git command="checkout">
+						<args>
+							<arg line="${GitEndVersion}"/>
+						</args>
+					</git>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	<target name="git-setup-run">
+		<git-setup-macro/>
+	</target>
+	
+	<target name="Deploy-Full">              
+        <deploytosf        
+            sfusername="${sfsb.username}"
+            sfpassword="${sfsb.password}" 
+            sfserverurl="${sfsb.serverurl}"
+            sfloginUrl="${sf.login.url}"             
+            endpointForBuildRecord = "${sf.buildrecord.endpoint}"
+            endpointForBuildAttachment = "${sf.attachment.endpoint}" 
+            rootdir = "${git.salesforce.root.dir}" 
+			isFull="true"/>
+          
+    </target>
+    
+	<target name="buildFullSource" >
+		<sf:deploy username="${sfsb.username}" password="${sfsb.password}" serverurl="${sfsb.serverurl}" 
+					ignoreWarnings="true" 
+					deployRoot="src">
+		</sf:deploy>
+	</target>
+	
+	<target name="cleanPermissions">
+	        <echo>${line.separator}********* Profile Cleaning Start **********</echo>
+	         <cleanPermissions srcFolderPath="${git.sf.deployment.path}" />	        
+	        <echo>${line.separator}********* Profile Cleaning End **********</echo>	        
+	</target>
+	
+	<!-- Fetch Code -->
+    <target name="fetchCode">
+      <mkdir dir="retrievedCode"/>
+      <!-- Retrieve the contents into another directory -->
+      <sf:retrieve username="${sf.usernameRetrieve}" password="${sf.passwordRetrieve}" serverurl="${sf.serverurlRetrieve}" maxPoll="${sf.maxPoll}" retrieveTarget="retrievedCode" unpackaged="src/package.xml"/>	  
+	  <cleanPermissions srcFolderPath="retrievedCode" />
+	  <copy todir="src/profiles">
+		<fileset dir="retrievedCode/profiles"/>
+	  </copy>	  
+	  <copy todir="src/permissionsets">
+		<fileset dir="retrievedCode/permissionsets"/>
+	  </copy>	  
+    </target>
+
+		<!-- Fetch Code -->
+    <target name="cleanSRCPermissions">     
+	  <cleanPermissions srcFolderPath="src" />	  	
+      <xmltask source="src/profiles/Admin.profile" dest="src/profiles/Admin.profile"> 	  
+			<remove path="/:Profile/:userPermissions[:name/text() = 'ViewGlobalHeader']"/> 
+	  </xmltask>
+	  <xmltask source="src/profiles/Admin.profile" dest="src/profiles/Admin.profile"> 	  
+			<remove path="/:Profile/:userPermissions[:name/text() = 'ManagePartners']"/> 
+	  </xmltask>	  
+    </target>	
+	<target name="testCleanUP">		
+		<xmltask source="src/profiles/Admin.profile" dest="src/profiles/Admin.profile"> 	  
+			<remove path="/:Profile/:userPermissions[:name/text() = 'ViewGlobalHeader']"/> 
+	    </xmltask>
+	    <xmltask source="src/profiles/Admin.profile" dest="src/profiles/Admin.profile"> 	  
+			<remove path="/:Profile/:userPermissions[:name/text() = 'ManagePartners']"/> 
+	    </xmltask>				
+	</target>
+
+</project>
