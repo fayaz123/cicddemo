@@ -1,0 +1,8 @@
+#Mapping values
+#Thu Apr 13 21:59:20 IST 2017
+Response=Response__c
+Pattern\ Type=Pattern_Type__c
+Error\ Mapping\ Name=Name
+Code=Code__c
+System=System__c
+Pattern=Pattern__c

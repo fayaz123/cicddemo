@@ -2,8 +2,8 @@
 <project name="IETest" basedir="." xmlns:sf="antlib:com.salesforce">
     
     <property file="../build.properties"/>
-    <property file="default.properties"/>
-    
+   <!-- <property file="default.properties"/> -->
+    <property  file="${property.file.path}"/>
 	<property environment="env"/>
     
   
@@ -615,7 +615,7 @@
 		<exectuteScript  scriptdir="${sf.apex.script.path}"  pattern="*.txt" />		
 	</target>
     <target name="Deploy-Incremental">  
-	
+	<echo>${line.separator} ***META  ${property.file.path} ${sfsb.serverurl} ***${line.separator}</echo>
 		<git-setup-macro/>
         <echo>In Deploy - Increamental</echo>
         <deploytosf        

@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="11" passed="11">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="39719" started-at="2017-04-20T13:17:10Z" finished-at="2017-04-20T13:17:49Z">
+  <suite name="Suite" duration-ms="27467" started-at="2017-04-20T14:33:46Z" finished-at="2017-04-20T14:34:14Z">
     <groups>
     </groups>
-    <test name="POC Test Execution 1" duration-ms="39719" started-at="2017-04-20T13:17:10Z" finished-at="2017-04-20T13:17:49Z">
+    <test name="POC Test Execution 1" duration-ms="27467" started-at="2017-04-20T14:33:46Z" finished-at="2017-04-20T14:34:14Z">
       <class name="com.factory.tests.Test_Cases">
-        <test-method status="PASS" signature="start_report()[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="start_report" is-config="true" duration-ms="302" started-at="2017-04-20T18:47:09Z" finished-at="2017-04-20T18:47:10Z">
+        <test-method status="PASS" signature="start_report()[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="start_report" is-config="true" duration-ms="345" started-at="2017-04-20T20:03:46Z" finished-at="2017-04-20T20:03:46Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- start_report -->
-        <test-method status="PASS" signature="initialize(java.lang.String, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="initialize" is-config="true" duration-ms="11020" started-at="2017-04-20T18:47:10Z" finished-at="2017-04-20T18:47:21Z">
+        <test-method status="PASS" signature="initialize(java.lang.String, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="initialize" is-config="true" duration-ms="12282" started-at="2017-04-20T20:03:46Z" finished-at="2017-04-20T20:03:59Z">
           <params>
             <param index="0">
               <value>
@@ -47,7 +47,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- initialize -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="22118" started-at="2017-04-20T18:47:23Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="8875" started-at="2017-04-20T20:04:01Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -63,18 +63,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="1" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=Execute_Configuration status=SUCCESS method=Test_Cases.Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -90,7 +79,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -101,7 +90,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -112,23 +101,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Author_Apex]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[No]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -144,7 +117,23 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Author_Apex]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[No]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Execute_Configuration -->
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -155,7 +144,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -171,7 +160,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -182,7 +171,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="1" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=Execute_Configuration status=SUCCESS method=Test_Cases.Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- log_fail -->
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -198,7 +198,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="1" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -209,34 +209,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=Execute_Configuration status=SUCCESS method=Test_Cases.Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Process_Builder]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[No]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -252,7 +225,23 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Process_Builder]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[No]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Execute_Configuration -->
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -263,7 +252,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -279,7 +268,29 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=Execute_Configuration status=SUCCESS method=Test_Cases.Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- log_fail -->
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=Execute_Configuration status=SUCCESS method=Test_Cases.Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- log_fail -->
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -295,18 +306,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[[TestResult name=Execute_Configuration status=SUCCESS method=Test_Cases.Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e] output={null}]]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="1" started-at="2017-04-20T18:47:45Z" data-provider="data" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="Execute_Configuration(java.lang.String, java.lang.String)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="Execute_Configuration" duration-ms="0" started-at="2017-04-20T20:04:10Z" data-provider="data" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -322,7 +322,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Execute_Configuration -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -333,7 +333,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="0" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:45Z">
+        <test-method status="PASS" signature="log_fail(org.testng.ITestResult)[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="log_fail" is-config="true" duration-ms="1" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:10Z">
           <params>
             <param index="0">
               <value>
@@ -344,11 +344,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- log_fail -->
-        <test-method status="PASS" signature="quit()[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="quit" is-config="true" duration-ms="4358" started-at="2017-04-20T18:47:45Z" finished-at="2017-04-20T18:47:49Z">
+        <test-method status="PASS" signature="quit()[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="quit" is-config="true" duration-ms="4322" started-at="2017-04-20T20:04:10Z" finished-at="2017-04-20T20:04:14Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- quit -->
-        <test-method status="PASS" signature="close_report()[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="close_report" is-config="true" duration-ms="551" started-at="2017-04-20T18:47:50Z" finished-at="2017-04-20T18:47:50Z">
+        <test-method status="PASS" signature="close_report()[pri:0, instance:com.factory.tests.Test_Cases@282ba1e]" name="close_report" is-config="true" duration-ms="855" started-at="2017-04-20T20:04:14Z" finished-at="2017-04-20T20:04:15Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- close_report -->

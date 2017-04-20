@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CICD" xmlns:sf="antlib:com.salesforce" basedir=".">
+
+<property name="mainDir" value="D:/intuitdemofinal/cicddemo"/>
+
+
+
+ <target name="startCICD"> 
+		
+		<echo>${line.separator} *** AUTO ${property.file.path} ${sfsb.serverurl} ***${line.separator}</echo>
+ 	    <ant antfile="${mainDir}/build_metadata.xml" target="Deploy-Incremental" dir="${mainDir}">
+		  <property file="${property.file.path}"/>
+		</ant>
+ </target>
+</project>

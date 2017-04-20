@@ -1,0 +1,6 @@
+#Mapping values
+#Mon Apr 17 10:41:40 IST 2017
+OAuthVersion=OAuthVersion__c
+Log\ Callout\ Response\ Time=Log_Callout_Response_Time__c
+Web\ Call\ Setting\ Name=Name
+Temp\ ID=TempId__c

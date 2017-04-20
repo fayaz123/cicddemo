@@ -44,9 +44,9 @@
 			<sysproperty key="browser" value="firefox"/>
 			<sysproperty key="timeout" value="40"/>
 			<sysproperty key="org" value="stage"/>
-			<sysproperty key="url" value="https://intuitb2b--CICDDev1.cs53.my.salesforce.com"/>
-			<sysproperty key="username" value="perala_ravi@persistent.com.b2b.cicddev1"/>
-			<sysproperty key="password" value="nokia1100"/>
+			<sysproperty key="url" value="${sfsb.instanceurl}"/>
+			<sysproperty key="username" value="${sfsb.username}"/>
+			<sysproperty key="password" value="${sfsb.password}"/>
 			<xmlfileset dir="${basedir}" includes="testng.xml" />
 		</testng>
 	</target>

@@ -1,0 +1,35 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="insertObject"
+        class="com.salesforce.dataloader.process.ProcessRunner"
+        singleton="false">
+        <description>Inserts object records from a CSV file.</description>
+        <property name="name" value="Product2Insert"/>
+        <property name="configOverrideMap">
+            <map>
+                <entry key="sfdc.endpoint" value="https://cs54.salesforce.com"/>
+                <entry key="sfdc.username" value="fayazfarooq_shaik@persistent.com.b2b.cicddev2"/>
+                <entry key="sfdc.password" value="89b4c5cbc2c567d2f3fce014dd35193dee12763eff9bfa0029bd6f5699cda8139d6202e965fdda73"/>
+                <entry key="process.encryptionKeyFile" value="D:\intuitdemofinal\cicddemo\CISupport\DataLoaderScript/datascripts/dataloader_encryption_key.txt"/>
+                <entry key="sfdc.debugMessages" value="true"/>
+                <entry key="sfdc.debugMessagesFile" value="D:\intuitdemofinal\cicddemo\CISupport\DataLoaderScript/orgs/intuitb2b/data/debug.log"/>
+                <entry key="sfdc.timeoutSecs" value="600"/>
+                <entry key="sfdc.loadBatchSize" value="200"/>
+		<entry key="sfdc.externalIdField" value="null"/>
+				
+                <entry key="process.operation" value="insert"/>
+                <entry key="dataAccess.type" value="csvRead"/>
+                <entry key="sfdc.entity" value="Product2"/>
+                <entry key="dataAccess.name" value="D:\intuitdemofinal\cicddemo\CISupport\DataLoaderScript/datascripts/datafiles/Product2Insert.csv"/>
+
+                <entry key="process.mappingFile" value="D:\intuitdemofinal\cicddemo\CISupport\DataLoaderScript/datascripts/mappingfiles/Product2InsertMap.sdl"/>
+                <entry key="process.outputSuccess" value="D:\intuitdemofinal\cicddemo\CISupport\DataLoaderScript/orgs/intuitb2b/data/Product2Insert_success.csv"/>
+                <entry key="process.outputError" value="D:\intuitdemofinal\cicddemo\CISupport\DataLoaderScript/orgs/intuitb2b/data/Product2Insert_error.csv"/>
+
+				<!--
+                <entry key="process.initialLastRunDate" value="2005-12-01T00:00:00.000-0800"/>
+				-->
+            </map>
+        </property>
+    </bean>
+</beans>
