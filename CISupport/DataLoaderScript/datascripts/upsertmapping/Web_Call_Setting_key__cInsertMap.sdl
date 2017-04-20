@@ -1,0 +1,13 @@
+#Mapping values
+#Mon Apr 17 21:33:55 IST 2017
+CREATEDDATE=CreatedDate
+VALUE__C=Value__c
+KEY_LOCATION__C=Key_Location__c
+CURRENCYISOCODE=CurrencyIsoCode
+LASTMODIFIEDBYID=LastModifiedById
+SETTING_LINK__C=Setting_Link__c
+WEB_CALL_SETTING__C=Web_Call_Setting__c
+CREATEDBYID=CreatedById
+TEMPID__C=TempId__c
+LASTMODIFIEDDATE=LastModifiedDate
+NAME=Name

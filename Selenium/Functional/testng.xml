@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Suite" parallel="tests" thread-count="2">
+		<listeners> 
+			<listener class-name="com.selenium.utils.ScreenshotListener"/> 
+      	</listeners>
+	
+	<test name="POC Test Execution 1">
+		
+		<!-- <parameter name="browser" value="ff" />
+		<parameter name="timeout" value="40" />
+		<parameter name="org" value="stage" />
+		<parameter name="url" value="https://login.salesforce.com" />
+		<parameter name="username" value="skuid_org_one@test.com" />
+		<parameter name="password" value="newuser@1234" /> -->
+		
+		
+		<parameter name="browser" value="${browser}" />
+		<parameter name="timeout" value="${timeout}" />
+		<parameter name="org" value="${org}" />
+		<parameter name="url" value="${url}" />
+		<parameter name="username" value="${username}" />
+		<parameter name="password" value="${password}" />
+		
+		<classes>
+			<class name="com.factory.tests.Test_Cases" />
+		</classes>
+		
+	</test>
+</suite> 
+

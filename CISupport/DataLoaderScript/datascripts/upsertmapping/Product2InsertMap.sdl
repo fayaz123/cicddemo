@@ -1,0 +1,34 @@
+#Mapping values
+#Mon Apr 17 16:14:31 IST 2017
+BILLING_TYPE__C=Billing_Type__c
+SIEBEL_PART_NUMBER__C=Siebel_Part_Number__c
+OFFER_TYPE__C=Offer_Type__c
+SIEBEL_PRICE_TYPE__C=Siebel_Price_Type__c
+NAME=Name
+DURATION__C=Duration__c
+RECORDTYPEID=RecordTypeId
+OFFER_LEVEL__C=Offer_Level__c
+PRODUCT_GROUP__C=Product_Group__c
+UNIT__C=Unit__c
+SKU__C=SKU__c
+CURRENCYISOCODE=CurrencyIsoCode
+DESCRIPTION=Description
+TYPE__C=Type__c
+TEMPLATE__C=Template__c
+SEGMENT__C=Segment__c
+CUSTOMER_SEGMENT__C=Customer_Segment__c
+SUPPORT_CATEGORY__C=Support_Category__c
+EXTENDED_SALESCHANNEL__C=Extended_SalesChannel__c
+PRODUCT_METRIC_ID__C=Product_Metric_ID__c
+SIEBEL_ROW_ID__C=Siebel_Row_ID__c
+USAGE_RANGE_TO__C=Usage_Range_To__c
+OFFERED_COUNTRY__C=Offered_Country__c
+COMMISSIONABLE__C=Commissionable__c
+SIEBEL_ONGOING_PAYMENT_FLAG__C=Siebel_Ongoing_Payment_Flag__c
+RELATED_PRODUCT_CODE__C=Related_Product_Code__c
+PRODUCTCODE=ProductCode
+FAMILY=Family
+ISACTIVE=IsActive
+USAGE_RANGE_FROM__C=Usage_Range_From__c
+SALES_CHANNEL__C=Sales_Channel__c
+PLATFORM__C=Platform__c

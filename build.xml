@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CICD" xmlns:sf="antlib:com.salesforce" basedir=".">
 
-<property name="mainDir" value="D:/Intuitdemo/LocalSetup"/>
+<property name="mainDir" value="D:/intuitdemofinal/cicddemo"/>
  <target name="startCICD"> 
- <!--
-	<ant antfile="${mainDir}/Predeploy/build_Predeploy.xml" target="test" dir="${mainDir}/Predeploy" useNativeBasedir="true"/>	
-    <ant antfile="${mainDir}/Dev/build_metadata.xml" target="Deploy-Incremental" dir="${mainDir}/Dev"/>
-	<ant antfile="${mainDir}/DataLoaderScript/build_Dataloader.xml" target="insertData" dir="${mainDir}/DataLoaderScript"/>
-	<ant antfile="${mainDir}/Postdeploy/build_Postdeploy.xml" target="test" dir="${mainDir}/Postdeploy" useNativeBasedir="true"/>
-	<ant antfile="${mainDir}/Functionaltest/build_Fundeploy.xml" target="test" dir="${mainDir}/Functionaltest" useNativeBasedir="true"/>
-	-->
-	<ant antfile="${mainDir}/Dev/build_metadata.xml" target="Deploy-Incremental" dir="${mainDir}/Dev"/>
+ 	<ant antfile="${mainDir}/Selenium/PreDeploy/build_Predeploy.xml" target="test" useNativeBasedir="true"/>	
+    <ant antfile="${mainDir}/build_metadata.xml" target="Deploy-Incremental" dir="${mainDir}"/>
+	<ant antfile="${mainDir}/CISupport/DataLoaderScript/build_Dataloader.xml" target="insertData" useNativeBasedir="true"/>
+	<ant antfile="${mainDir}/Selenium/PostDeploy/build_Postdeploy.xml" target="test" useNativeBasedir="true"/>
+	<ant antfile="${mainDir}/Selenium/Functional/build_Funcdeploy.xml" target="test" useNativeBasedir="true"/>
  </target>
 </project>
