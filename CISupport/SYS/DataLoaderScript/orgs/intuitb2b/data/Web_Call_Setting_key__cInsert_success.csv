@@ -1,1 +1,36 @@
 "ID","KEY LOCATION","VALUE","WEB CALL SETTING","WEB CALL SETTING KEY NAME","STATUS"
+"a0D0j000000FzfdEAC","Header","application/xml","123","Content-Type","Item Created"
+"a0D0j000000FzfeEAC","Header","Intuit.wcg.turbotax.salesforce.support","123","intuit_offeringId","Item Created"
+"a0D0j000000FzffEAC","Url","https://filing-tax-qal.tax.intuit.com/v2/csr/ind/income/efile/status/full","123","URL","Item Created"
+"a0D0j000000FzfgEAC","Content","","123","requestbody","Item Created"
+"a0D0j000000FzfhEAC","Misc","<Criteria1>
+<authId>{!authId}</authId>
+</Criteria1>","123","CRTauthId","Item Created"
+"a0D0j000000FzfiEAC","Misc","<Criteria6>
+<arNumber>{!arNumber}</arNumber>
+
+</Criteria6>","123","CRTarNumber","Item Created"
+"a0D0j000000FzfjEAC","Misc","<Criteria4>
+<userName>{!userName}</userName>
+
+</Criteria4>","123","CRTuserName","Item Created"
+"a0D0j000000FzfkEAC","Misc","<Criteria2>
+<firstName>{!firstName}</firstName>
+<lastName>{!lastName}</lastName>
+<postalCode>{!postalCode}</postalCode>
+</Criteria2>","123","CRTfullnameSearch","Item Created"
+"a0D0j000000FzflEAC","Misc","<Criteria5>
+<email>{!email}</email>
+
+</Criteria5>","123","CRTemail","Item Created"
+"a0D0j000000FzfmEAC","Misc","<Criteria3>
+<phone>{!phone}</phone>
+
+</Criteria3>","123","CRTphone","Item Created"
+"a0D0j000000FzfnEAC","Misc","<Criteria2>
+
+<lastName>{!lastName}</lastName>
+<postalCode>{!postalCode}</postalCode>
+</Criteria2>","123","CRTnameSearch","Item Created"
+"a0D0j000000FzfoEAC","Method","GET","123","Method","Item Created"
+"a0D0j000000FzfpEAC","Timeout","15000","123","timeout","Item Created"

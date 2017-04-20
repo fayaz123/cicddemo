@@ -281,6 +281,13 @@
                     <arg value="HEAD" />
                 </args>
             </git>
+			 <!-- check for roll back -->
+			 
+			 <condition property="is-rollback"> 
+                <equals arg1="${Build_Type}" arg2="${git.buildtype.rollback}"/>
+             </condition>
+			 
+			 
                        
             <echo>${line.separator} *****Current commit id : ${end.revision}***** </echo>
             
@@ -290,12 +297,18 @@
                    loginUrl="@{sfloginUrl}"/>
             
             <echo>${line.separator} *** Conected to Salesforce **** </echo>
+             <echo>${line.separator} *** Conected to Salesforce roll back = ${is-rollback} **** </echo>
             
             <!-- SOQL to salesforce to get latest revision deployed to salesforce -->
 			<if>
                 <equals arg1="@{isFull}" arg2="false"/>
            
                 <then>
+				     <if>
+						<equals arg1="${is-rollback}" arg2="false" />
+						<then>
+      <echo>${line.separator} ***  not a roll back = ${is-rollback} **** </echo>
+            
 					<echo>${line.separator} *** Incremental deployment started... </echo>	
 					<echo>${line.separator} *** Get the last commit id deployed to SF </echo>	
 					<runQuery
@@ -303,7 +316,7 @@
 						serverUrl="${serverUrl}"
 						queryResult="buildDetails"
 						query="SELECT Id, RevisionStart__c,RevisionEnd__c FROM BuildDetails__c  order by CreatedDate DESC LIMIT 1"/>
-					<echo>${line.separator} *** after query </echo>	
+
 					<!-- Parse JSON result via JavaScript eval -->
 					
 					<script language="javascript">
@@ -314,7 +327,33 @@
 							project.setProperty('is.lastcommit.id.not.found', true);
 						}
 					</script>
-				<echo>${line.separator} *** script after </echo>			
+						</then>
+						<else>
+							<!-- it is rollback -->
+							<echo>${line.separator} ***  inside  a roll back = ${is-rollback} **** </echo>
+      
+                    
+							<runQuery
+								sessionId="${sessionId}"
+								serverUrl="${serverUrl}"
+								queryResult="buildDetails"
+								query="SELECT Id, RevisionStart__c,RevisionEnd__c FROM BuildDetails__c  order by CreatedDate DESC LIMIT 1"/>
+
+								<!-- Parse JSON result via JavaScript eval -->
+								<script language="javascript">
+									<![CDATA[ 
+										var response = eval('('+project.getProperty('buildDetails')+')');
+										if(response.records[0]){
+											var endRevisionParameter =  project.getProperty('End_SVN_Version');
+											project.setProperty('start.revision', response.records[0].RevisionEnd__c);
+											project.setProperty('end.revision', response.records[0].RevisionStart__c);
+										}
+									]]>
+								</script>
+						</else>
+					</if>
+					
+						
 				</then>
 				<else>
 					<echo>${line.separator} *** Full deployment started... </echo>
@@ -360,7 +399,17 @@
                         <arg line="--"/>
                         <arg line="${git.src}"/>
                     </exec>
-         
+					<!-- if it is rollback then checkout to start revision -->
+					<if>
+						<equals arg1="${is-rollback}" arg2="true" />
+						<then>
+							<git command="checkout">
+								<args>
+									<arg line="${end.revision}"/>
+								</args>
+							</git>
+						</then>
+					</if>
                     <echo>${line.separator} *****Diff change log created *******</echo>
             
                     <condition property="fs.length.empty">
