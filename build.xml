@@ -3,10 +3,20 @@
 
 <property name="mainDir" value="D:/intuitdemofinal/cicddemo"/>
  <target name="startCICD"> 
- 	<ant antfile="${mainDir}/Selenium/PreDeploy/build_Predeploy.xml" target="test" useNativeBasedir="true"/>	
-    <ant antfile="${mainDir}/build_metadata.xml" target="Deploy-Incremental" dir="${mainDir}"/>
-	<ant antfile="${mainDir}/CISupport/DataLoaderScript/build_Dataloader.xml" target="insertData" useNativeBasedir="true"/>
-	<ant antfile="${mainDir}/Selenium/PostDeploy/build_Postdeploy.xml" target="test" useNativeBasedir="true"/>
-	<ant antfile="${mainDir}/Selenium/Functional/build_Funcdeploy.xml" target="test" useNativeBasedir="true"/>
+ 	<ant antfile="${mainDir}/Selenium/PreDeploy/build_Predeploy.xml" target="test" useNativeBasedir="true">
+		<property file="${property.file.path}"/>
+	</ant>	
+    <ant antfile="${mainDir}/build_metadata.xml" target="Deploy-Incremental" dir="${mainDir}">
+	 <property file="${property.file.path}"/>
+	</ant>
+	<ant antfile="${mainDir}/${dataloader.property.file.path}/build_Dataloader.xml" target="insertData" useNativeBasedir="true"/>
+	
+	<ant antfile="${mainDir}/Selenium/PostDeploy/build_Postdeploy.xml" target="test" useNativeBasedir="true">
+	<property file="${property.file.path}"/>
+	</ant>
+	<ant antfile="${mainDir}/Selenium/Functional/build_Funcdeploy.xml" target="test" useNativeBasedir="true">
+	<property file="${property.file.path}"/>
+	</ant>
+	
  </target>
 </project>
