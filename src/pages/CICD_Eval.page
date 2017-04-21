@@ -2,7 +2,7 @@
    <apex:form >
       <apex:pageBlock >
           <apex:pageBlockSection >
-                  Persistent Systems, Pune Push to Git
+                 CICD DEPLOYMENT SUCCESS
            </apex:pageBlockSection>
         </apex:pageBlock>
      </apex:form> 
