@@ -2,7 +2,7 @@
    <apex:form >
       <apex:pageBlock >
           <apex:pageBlockSection >
-                 CICD DEPLOYMENT SUCCESS
+                  CICD Deployment Success
            </apex:pageBlockSection>
         </apex:pageBlock>
      </apex:form> 
