@@ -2,7 +2,7 @@
    <apex:form >
       <apex:pageBlock >
           <apex:pageBlockSection >
-                 ROLLBACK TESTs PAGE
+                 ROLLBACK TEST PAGE
            </apex:pageBlockSection>
         </apex:pageBlock>
      </apex:form> 
