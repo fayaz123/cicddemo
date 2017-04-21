@@ -1,9 +1,0 @@
-<apex:page >
-   <apex:form >
-      <apex:pageBlock >
-          <apex:pageBlockSection >
-                 ROLLBACK TESTs PAGE
-           </apex:pageBlockSection>
-        </apex:pageBlock>
-     </apex:form> 
-</apex:page>
